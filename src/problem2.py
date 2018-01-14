@@ -116,6 +116,7 @@ def problem2a(circle, rectangle, window):
     window.continue_on_mouse_click()
     line = rg.Line(rectangle.get_upper_right_corner(), rectangle.get_lower_left_corner())
     line.attach_to(window)
+    line.arrow = 'last'
     window.render()
     window.continue_on_mouse_click()
     circle.fill_color = rectangle.outline_color
@@ -184,7 +185,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -192,7 +193,32 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # ------------------------------------------------------------------
-
+    rect.attach_to(win)
+    for k in range(n):
+        if rect.corner_1.x > rect.corner_2.x:
+            if rect.corner_1.y > rect.corner_2.y:
+                rectangle = rg.Rectangle(rg.Point(rect.corner_1.x + delta*k,
+                                                  rect.corner_1.y + delta*k),
+                                         rg.Point(rect.corner_2.x - delta*k,
+                                                  rect.corner_2.y - delta*k))
+            else:
+                rectangle = rg.Rectangle(rg.Point(rect.corner_1.x + delta*k,
+                                                  rect.corner_1.y - delta*k),
+                                         rg.Point(rect.corner_2.x - delta*k,
+                                                  rect.corner_2.y + delta*k))
+        else:
+            if rect.corner_1.y > rect.corner_2.y:
+                rectangle = rg.Rectangle(rg.Point(rect.corner_1.x - delta*k,
+                                                  rect.corner_1.y + delta*k),
+                                         rg.Point(rect.corner_2.x + delta*k,
+                                                  rect.corner_2.y - delta*k))
+            else:
+                rectangle = rg.Rectangle(rg.Point(rect.corner_1.x - delta*k,
+                                                  rect.corner_1.y - delta*k),
+                                         rg.Point(rect.corner_2.x + delta*k,
+                                                  rect.corner_2.y + delta*k))
+        rectangle.attach_to(win)
+    win.render()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
